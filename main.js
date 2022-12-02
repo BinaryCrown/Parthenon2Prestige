@@ -37,12 +37,36 @@ function GetTime() {
 	}
 }
 
+// Compute population growth
+
+class Nation {
+	constructor (initpop, popgrowth) {
+		this.population = initpop;
+		this.population_growth = popgrowth;
+	}
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+let popDisplay = document.getElementById("popDisplay");
+
+Nation.prototype.GetNewPop = function() {
+	this.population *= (Math.E)**this.population_growth;
+	popDisplay.innerText = numberWithCommas(this.population);
+}
+
 // Update the text containing current time
 
-function tick() {
+function tick(nation) {
 	GetTime();
+	nation.GetNewPop();
 };
 
+let nation = new Nation(100,1); 
+popDisplay.innerText = numberWithCommas(nation.population);
+
 for (let i = 0; i < 1000; i++) {
-	tick();
+	tick(nation);
 }
