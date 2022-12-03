@@ -60,14 +60,14 @@ function erf(x) {
 
 function clamp(x) {
 	// Order-preserving bijection R -> (0,1)
-	return (erf(x)+1)/2
+	return (erf(x)+1)/2;
 }
 
-function PopGrowth(happiness, education, freedom) {
+function PopGrowth(happiness, education, freedom, healthcare) {
 	// happiness, education, freedom are values from 0 to 1
-	let tv = happiness*education+1-(2*freedom-0.5)^2;
-	let diff = tv - Math.abs(tv - happiness*education);
-	return clamp(happiness*education - diff);
+	let tv = happiness*education*healthcare+1-(2*freedom-0.5)^2;
+	let diff = tv - Math.abs(tv - happiness*education*healthcare);
+	return clamp(happiness*education*healthcare - diff);
 }
 
 // If civil liberties are too high or too low, population may not grow as fast.
@@ -75,9 +75,8 @@ function PopGrowth(happiness, education, freedom) {
 // Compute population growth
 
 class Nation {
-	constructor (initpop, happiness, education, freedom) {
+	constructor (initpop) {
 		this.population = initpop;
-		this.population_growth = PopGrowth(happiness, education, freedom);
 	}
 }
 
@@ -88,20 +87,22 @@ function numberWithCommas(x) {
 let popDisplay = document.getElementById("popDisplay");
 
 Nation.prototype.GetNewPop = function() {
-	this.population *= (Math.E)**this.population_growth;
+	this.population *= (Math.E)**(this.population_growth/14400);
 	popDisplay.innerText = numberWithCommas(this.population);
 }
 
 // Update the text containing current time
 
-function tick(nation) {
+function tick(nation,nstats) {
+	// nstats = [happiness, education, freedom, healthcare]
 	GetTime();
+	nation.population_growth = PopGrowth(nstats[0], nstats[1], nstats[2], nstats[3]);
 	nation.GetNewPop();
 };
 
-let nation = new Nation(100,1,1,0.75); 
+let nation = new Nation(100); 
 popDisplay.innerText = numberWithCommas(nation.population);
 
 for (let i = 0; i < 1000; i++) {
-	tick(nation);
+	tick(nation,[1,1,1,1]);
 }
