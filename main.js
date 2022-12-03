@@ -37,7 +37,8 @@ function GetTime() {
 	}
 }
 
-/* 
+/* Commented out population-related code because it's buggy
+// I'll return to population later
 
 // Get population growth value
 
@@ -96,16 +97,16 @@ Nation.prototype.GetNewPop = function() {
 
 // Update the text containing current time
 
-function tick(nation,nstats) {
+function tick(/*nation,nstats*/) {
 	// nstats = [happiness, education, freedom, healthcare]
 	GetTime();
-	nation.population_growth = PopGrowth(nstats[0], nstats[1], nstats[2], nstats[3]);
-	nation.GetNewPop();
+	// nation.population_growth = PopGrowth(nstats[0], nstats[1], nstats[2], nstats[3]);
+	// nation.GetNewPop();
 };
 
-let nation = new Nation(100); 
-popDisplay.innerText = numberWithCommas(nation.population);
+// let nation = new Nation(100); 
+// popDisplay.innerText = numberWithCommas(nation.population);
 
 for (let i = 0; i < 1000; i++) {
-	tick(nation,[1,1,1,1]);
+	tick(/*nation,[1,1,1,1]*/);
 }
