@@ -37,6 +37,8 @@ function GetTime() {
 	}
 }
 
+/* 
+
 // Get population growth value
 
 function erf(x) {
@@ -87,9 +89,10 @@ function numberWithCommas(x) {
 let popDisplay = document.getElementById("popDisplay");
 
 Nation.prototype.GetNewPop = function() {
-	this.population *= (Math.E)**(this.population_growth/14400);
+	this.population *= 
 	popDisplay.innerText = numberWithCommas(this.population);
 }
+*/
 
 // Update the text containing current time
 
