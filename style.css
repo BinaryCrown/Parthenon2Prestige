@@ -1,3 +1,9 @@
+body {
+    background-color: darkslategrey;
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 #timeDisplayDiv {
     text-align: center;
     font-size: large;
