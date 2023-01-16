@@ -28,16 +28,22 @@ function DtoYMD(days) {
 
 // Convert tons to tons, kg and g
 
+function RoundToHundredth(x){
+	let y = x*100;
+	y = Math.round(y);
+	return y/100;
+}
+
 function FormatTons(x) {
 	if (x >= 1) {
-		return x + " tons"
+		return RoundToHundredth(x) + " tons"
 	}
 	else {
 		if (x >= 0.001) {
-			return x*1000 + " kilograms"
+			return RoundToHundredth(x*1000) + " kilograms"
 		}
 		else {
-			return x*1000000 + " grams"
+			return RoundToHundredth(x*1000000) + " grams"
 		}
 	}
 }
