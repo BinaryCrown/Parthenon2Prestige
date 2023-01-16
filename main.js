@@ -28,7 +28,7 @@ function DtoYMD(days) {
 
 function FormatTons(x) {
 	if (x >= 1) {
-		return x + "tons"
+		return x + " tons"
 	}
 	else {
 		if (x >= 0.001) {
@@ -59,7 +59,7 @@ function GiveResources(years) {
 	wood += years;
 	stone += years;
 	woodDisplay.innerText = FormatTons(wood);
-	woodDisplay.innerText = FormatTons(stone);
+	stoneDisplay.innerText = FormatTons(stone);
 }
 
 // Update the text containing current time
