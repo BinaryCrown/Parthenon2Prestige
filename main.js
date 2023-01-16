@@ -32,10 +32,10 @@ function FormatTons(x) {
 	}
 	else {
 		if (x >= 0.001) {
-			return x*1000 + "kilograms"
+			return x*1000 + " kilograms"
 		}
 		else {
-			return x*1000000 + "grams"
+			return x*1000000 + " grams"
 		}
 	}
 }
