@@ -26,6 +26,8 @@ function DtoYMD(days) {
     return result; 
 }
 
+// Convert tons to tons, kg and g
+
 function FormatTons(x) {
 	if (x >= 1) {
 		return x + " tons"
@@ -44,30 +46,24 @@ let timeDisplay = document.getElementById("timeDisplay");
 let stoneDisplay = document.getElementById("stoneDisplay");
 let woodDisplay = document.getElementById("woodDisplay");
 
-// Increment time counter by one after a second, and change the text containing the time: 1 IRL second = 1 day in-game
-function GetTime() {
+// Increments time and gives resources
+function tick() {
 	if (isTicking) {
-		setTimeout(function(){GetTime()},50);
+		setTimeout(function(){tick()},50);
 	}
 	else {
 		isTicking = true;
-		setTimeout(() => {time++; isTicking = false; timeDisplay.innerText = DtoYMD(Math.floor(time/12));}, 100);
+		setTimeout(() => {
+			time += 1;
+			wood += 1/365;
+			stone += 1/365;
+			isTicking = false;
+			timeDisplay.innerText = DtoYMD(Math.floor(time/12));
+			woodDisplay.innerText = FormatTons(wood);
+			stoneDisplay.innerText = FormatTons(stone);
+		}, 100);
 	}
 }
-
-function GiveResources(years) {
-	wood += years;
-	stone += years;
-	woodDisplay.innerText = FormatTons(wood);
-	stoneDisplay.innerText = FormatTons(stone);
-}
-
-// Update the text containing current time
-
-function tick(/*nation,nstats*/) {
-	GetTime();
-	GiveResources(1/365);
-};
 
 for (let i = 0; i < 1000; i++) {
 	tick();
