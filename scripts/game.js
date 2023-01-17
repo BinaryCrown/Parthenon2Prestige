@@ -74,3 +74,13 @@ function tick() {
 for (let i = 0; i < 1000; i++) {
 	tick();
 }
+
+class Nation {
+	constructor(govprop, popstats, flags, resources, economy) {
+		// govprop = [name, flag, government type, taxes, budget]
+		// popstats = [happiness, intelligence, spirituality, freedom, safety]
+		// flags = array of numbers encoding technologies, issues, etc. 
+		// resources = [wood, stone, steel, food, wheat, matter, oil, energy, pp, qp, money]
+		// economy = [gdp, industries]
+	}
+}
