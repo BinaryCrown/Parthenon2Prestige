@@ -55,7 +55,7 @@ let woodDisplay = document.getElementById("woodDisplay");
 // Increments time and gives resources
 function tick() {
 	if (isTicking) {
-		setTimeout(function(){tick()},50);
+		setTimeout(function(){tick()},25);
 	}
 	else {
 		isTicking = true;
