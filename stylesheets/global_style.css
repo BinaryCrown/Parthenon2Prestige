@@ -2,4 +2,25 @@ body {
     background-color: darkslategrey;
     color: aliceblue;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 22px;
+}
+
+.subtitle {
+    font-weight: bold;
+    font-size: 33px;
+}
+
+.button {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 25px;
+    margin: auto;
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
+    background-color: #bcd0f8;
+    max-width: 250px;
+    border-style: solid;
+    border-color: #bcd0f8;
+    border-radius: 5px;
 }
