@@ -60,7 +60,7 @@ function tick() {
 	else {
 		isTicking = true;
 		setTimeout(() => {
-			time += 1;
+			time += 12;
 			wood += 1/365;
 			stone += 1/365;
 			isTicking = false;
