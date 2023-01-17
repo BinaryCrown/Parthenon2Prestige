@@ -27,3 +27,7 @@ body {
     border-color: #bcd0f8;
     border-radius: 5px;
 }
+
+a:clicked {
+    color: aliceblue;
+}
