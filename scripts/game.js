@@ -157,19 +157,12 @@ function getCookie(cname) {
 	return "";
   }
 
-function setCookie(cname, cvalue, exdays) {
-	const d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000))
-	let expires = "expires="+ d.toUTCString()
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
-}
-
 function ExportProgress(nation) {
-	setCookie("currentnation", JSON.stringify(nation), 365)
+	localStorage.setItem("currentnation", JSON.stringify(nation))
 }
 
 function checkCookie() {
-	let nation = getCookie("currentnation")
+	let nation = localStorage.getItem("currentnation")
 	if (nation != "") {
         nationprops = JSON.parse(nation)
 	} else {
@@ -180,10 +173,23 @@ function checkCookie() {
 
 checkCookie()
 
-for (let i = 0; i < 1000; i++) {
-	tick()
-}
+window.addEventListener("load", (event) => {
+	let lastload = localStorage.getItem("logofftime");
+	let secs = (Date.now().getTime() - lastloadtime.getTime()) / 1000;
+	offlineprogress = secs / 7200;
+	nationprops.age += offlineprogress*365;
+	nationprops.resources[0] += offlineprogress;
+	nationprops.resources[1] += offlineprogress;
+	timeDisplay.innerText = DtoYMD(Math.floor(nationprops.age));
+	woodDisplay.innerText = FormatTons(nationprops.resources[0]);
+	stoneDisplay.innerText = FormatTons(nationprops.resources[1]);
+	while (true) {
+		tick()
+	}
+});
 
 window.onbeforeunload = function(){
-	ExportProgress(nationprops)
+	ExportProgress(nationprops);
+	localStorage.setItem("logofftime", Date.now())
 }
+
