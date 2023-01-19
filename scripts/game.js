@@ -120,7 +120,7 @@ class Nation {
 		// govprop = [name, flag, government type, taxes, budget]
 		// popstats = [happiness, intelligence, spirituality, freedom, safety, gdpgrowth, death]
 		// flags = array of numbers encoding technologies, issues, etc. 
-		// resources = [wood, stone, steel, food, wheat, matter, oil, energy, pp, qp, money]
+		// resources = [wood, stone, steel, food, matter, oil, energy, pp, qp, money]
 		// economy = [gdp, industries]
 		this.govprop = govprop;
 		this.popstats = statsFromGovtype(govprop[2]);
@@ -136,7 +136,7 @@ class Nation {
 // budget = [ps, education, healthcare, infra, military, blackbudget]
 
 function MakeNewNation(govprop) {
-	return new Nation([govprop[0], govprop[1], [0,0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0]], [], [0, []], 0)
+	return new Nation([govprop[0], govprop[1], [0,0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0]], [], [0,0,0,0,0,0,0,0,0,0], [0, []], 0)
 }
 
 // Cookies to save game progress
