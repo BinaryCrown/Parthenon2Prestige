@@ -1,4 +1,3 @@
-let time = 0;
 let isTicking = false;
 let nationprops;
 
@@ -184,3 +183,7 @@ checkCookie()
 for (let i = 0; i < 1000; i++) {
 	tick()
 }
+
+window.onbeforeunload = function(){
+	ExportProgress(nationprops)
+ }
