@@ -180,4 +180,3 @@ while (true) {
 window.onbeforeunload = function(){
 	ExportProgress(nationprops);
 }
-
