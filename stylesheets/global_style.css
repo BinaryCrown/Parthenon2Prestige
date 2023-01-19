@@ -1,8 +1,7 @@
 @font-face {
-    font-family: 'PressStartFont';
-    font-style: NORMAL;
+    font-family: "PressStart";
+    src: url(PressStart2P-Regular.woff) format("woff");
     font-weight: 400;
-    src: url(PressStart2P-Regular.ttf) format('ttf');
 }
 
 body {
