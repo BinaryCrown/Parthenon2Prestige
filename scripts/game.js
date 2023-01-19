@@ -173,21 +173,11 @@ function checkCookie() {
 
 checkCookie()
 
-let lastload = localStorage.getItem("logofftime");
-let secs = (Date.now().getTime() - lastloadtime.getTime()) / 1000;
-offlineprogress = secs / 7200;
-nationprops.age += offlineprogress*365;
-nationprops.resources[0] += offlineprogress;
-nationprops.resources[1] += offlineprogress;
-timeDisplay.innerText = DtoYMD(Math.floor(nationprops.age));
-woodDisplay.innerText = FormatTons(nationprops.resources[0]);
-stoneDisplay.innerText = FormatTons(nationprops.resources[1]);
 while (true) {
 	tick()
 }
 
 window.onbeforeunload = function(){
 	ExportProgress(nationprops);
-	localStorage.setItem("logofftime", Date.now())
 }
 
