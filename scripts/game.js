@@ -1,8 +1,6 @@
 let time = 0;
 let isTicking = false;
-
-let wood = 0;
-let stone = 0;
+let nationprops;
 
 // Convert days to Y+M+D
 
@@ -60,19 +58,15 @@ function tick() {
 	else {
 		isTicking = true;
 		setTimeout(() => {
-			time += 12;
-			wood += 1/365;
-			stone += 1/365;
+			nationprops.age += 1;
+			nationprops.resources[0] += 1/365;
+			nationprops.resources[1] += 1/365;
 			isTicking = false;
-			timeDisplay.innerText = DtoYMD(Math.floor(time/12));
-			woodDisplay.innerText = FormatTons(wood);
-			stoneDisplay.innerText = FormatTons(stone);
+			timeDisplay.innerText = DtoYMD(Math.floor(nationprops.age));
+			woodDisplay.innerText = FormatTons(nationprops.resources[0]);
+			stoneDisplay.innerText = FormatTons(nationprops.resources[1]);
 		}, 100);
 	}
-}
-
-for (let i = 0; i < 1000; i++) {
-	tick();
 }
 
 const g = {
@@ -82,7 +76,7 @@ const g = {
 	libconfed:	[0.6,		0.5,			0.6,			0.4,	0.4,	0.5,		0.5],
 	feddem:		[0.5,		0.5,			0.5,			0.6,	0.4,	0.5,		0.5],
 	demo:		[0.4,		0.5,			0.5,			0.6,	0.5,	0.5,		0.5],
-	monarcy:	[0.5,		0.5,			0.6,			0.4,	0.5,	0.5,		0.5],
+	monarchy:	[0.5,		0.5,			0.6,			0.4,	0.5,	0.5,		0.5],
 	hippie:		[0.5,		0.5,			0.7,			0.5,	0.4,	0.4,		0.5],
 	capdict:	[0.5,		0.5,			0.5,			0.4,	0.5,	0.6,		0.5],
 	libpolice:	[0.4,		0.5,			0.4,			0.6,	0.6,	0.5,		0.5],
@@ -123,7 +117,7 @@ function statsFromGovtype (govtype) {
 }
 
 class Nation {
-	constructor(govprop, flags, resources, economy) {
+	constructor(govprop, flags, resources, economy, age) {
 		// govprop = [name, flag, government type, taxes, budget]
 		// popstats = [happiness, intelligence, spirituality, freedom, safety, gdpgrowth, death]
 		// flags = array of numbers encoding technologies, issues, etc. 
@@ -134,6 +128,7 @@ class Nation {
 		this.flags = flags;
 		this.resources = resources;
 		this.economy = economy;
+		this.age = age
 	}
 }
 
@@ -142,5 +137,50 @@ class Nation {
 // budget = [ps, education, healthcare, infra, military, blackbudget]
 
 function MakeNewNation(govprop) {
-	return new Nation([govprop[0], govprop[1], govprop[2], [0,0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0]])
+	return new Nation([govprop[0], govprop[1], [0,0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0]], [], [0, []], 0)
+}
+
+// Cookies to save game progress
+
+function getCookie(cname) {
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for(let i = 0; i <ca.length; i++) {
+	  let c = ca[i];
+	  while (c.charAt(0) == ' ') {
+		c = c.substring(1);
+	  }
+	  if (c.indexOf(name) == 0) {
+		return c.substring(name.length, c.length);
+	  }
+	}
+	return "";
+  }
+
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000))
+	let expires = "expires="+ d.toUTCString()
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+}
+
+function ExportProgress(nation) {
+	setCookie("currentnation", JSON.stringify(nation), 365)
+}
+
+function checkCookie() {
+	let nation = getCookie("currentnation")
+	if (nation != "") {
+        nationprops = JSON.parse(nation)
+	} else {
+		nationName = document.getElementById("nationName")
+		nationprops = MakeNewNation([nationName, "cenrep"])
+	}
+}
+
+checkCookie()
+
+for (let i = 0; i < 1000; i++) {
+	tick()
 }
