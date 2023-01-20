@@ -157,7 +157,7 @@ function checkCookie() {
 
 checkCookie()
 
-while (true) {
+for (i = 0; i < 1000000000; i++) {
 	tick()
 }
 
