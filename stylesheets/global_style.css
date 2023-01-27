@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: darkslategrey;
     color: aliceblue;
     font-family: 'PressStart';
     font-size: 16px;
@@ -20,7 +20,7 @@ body {
     display: block;
     font-family: 'PressStart';
     font-size: 16px;
-    color: white;
+    color: aliceblue;
     text-decoration: none;
     text-align: center;
     padding: 25px;
@@ -35,5 +35,5 @@ body {
 }
 
 a:clicked {
-    color: white;
+    color: aliceblue;
 }

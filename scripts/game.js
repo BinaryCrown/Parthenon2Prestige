@@ -141,12 +141,35 @@ function MakeNewNation(govprop) {
 
 // Cookies to save game progress
 
+function getCookie(cname) {
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie)
+	let ca = decodedCookie.split(';')
+	for(let i = 0; i <ca.length; i++) {
+	  let c = ca[i];
+	  while (c.charAt(0) == ' ') {
+		c = c.substring(1)
+	  }
+	  if (c.indexOf(name) == 0) {
+		return c.substring(name.length, c.length)
+	  }
+	}
+	return "";
+  }
+
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000))
+	let expires = "expires="+ d.toUTCString()
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+}
+
 function ExportProgress(nation) {
-	localStorage.setItem("currentnation", JSON.stringify(nation))
+	setCookie("currentnation", JSON.stringify(nation), 365)
 }
 
 function checkCookie() {
-	let nation = localStorage.getItem("currentnation")
+	let nation = getCookie("currentnation")
 	if (nation != "") {
         nationprops = JSON.parse(nation)
 	} else {
@@ -157,10 +180,10 @@ function checkCookie() {
 
 checkCookie()
 
-for (i = 0; i < 1000000000; i++) {
+for (let i = 0; i < 1000; i++) {
 	tick()
 }
 
 window.onbeforeunload = function(){
-	ExportProgress(nationprops);
+	ExportProgress(nationprops)
 }
